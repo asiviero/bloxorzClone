@@ -20,6 +20,7 @@ using namespace std;
 
 // Graphic Libs
 #include <GL/gl.h>
+#include <GL/glu.h>
 #include <GL/glut.h>
 #include <png.h>
 #include <SOIL.h>
@@ -42,8 +43,8 @@ using namespace std;
 #define Y_AXIS 1
 #define Z_AXIS 2
 
-#define MAX_PLATFORM_SIZE_X 100
-#define MAX_PLATFORM_SIZE_Y 100
+#define MAX_PLATFORM_SIZE_X 10
+#define MAX_PLATFORM_SIZE_Y 10
 
 enum moveDirection {
 	up = 1,
