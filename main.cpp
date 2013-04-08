@@ -32,11 +32,19 @@ void fsmFunction(void) {
 	glutSwapBuffers();
 
 	cout << "Plat Goal: " << p1->Goal[X_AXIS] << " " << p1->Goal[Y_AXIS] << "\n";
-	cout << "Plat Starting Point: " << p1->StartPosition[0][X_AXIS] << " " << p1->StartPosition[0][Y_AXIS] << " " << p1->StartPosition[1][X_AXIS] << " " << p1->StartPosition[1][Y_AXIS] <<"\n";
-	cout << "Block Starting Point: " << b1->Position[0][X_AXIS] << " " << b1->Position[0][Y_AXIS] << " " << b1->Position[1][X_AXIS] << " " << b1->Position[1][Y_AXIS] <<"\n";
-	cout << "Teste: " << p1->PlatformMatrix[2][0] << "\n";
+//	cout << "Plat Starting Point: " << p1->StartPosition[0][X_AXIS] << " " << p1->StartPosition[0][Y_AXIS] << " " << p1->StartPosition[1][X_AXIS] << " " << p1->StartPosition[1][Y_AXIS] <<"\n";
+	cout << "Block Point: " << b1->Position[0][X_AXIS] << " " << b1->Position[0][Y_AXIS] << " " << b1->Position[1][X_AXIS] << " " << b1->Position[1][Y_AXIS] <<"\n";
 
-	b1->moveBlock(leftd);
+	// Check for out of platform
+	if(b1->isBlockOutOfPlatform(p1->PlatformMatrix)) {
+		cout << "Out of Platform!\n";
+	}
+
+	// Check if objective reached
+	if(b1->isBlockOnPosition(p1->Goal)) {
+		cout << "Objective Reached!\n";
+	}
+
 }
 
 
@@ -53,6 +61,10 @@ int main(int argc, char** argv) {
 	p1 = new Platform("../platforms/plat.txt");
 
 	b1 = new Block(p1->StartPosition);
+
+	//glutKeyboardFunc(keyboardHandler);
+	glutSpecialFunc(specialKeysHandler);
+
 	initScreen();
 	glutDisplayFunc(fsmFunction);
 	glutMainLoop();

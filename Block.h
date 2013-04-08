@@ -18,6 +18,8 @@ public:
 	virtual ~Block();
 
 	void moveBlock(moveDirection m);
+	bool isBlockOnPosition(int pos[2]);
+	bool isBlockOutOfPlatform(bool PlatformMatrix[MAX_PLATFORM_SIZE_X][MAX_PLATFORM_SIZE_Y]);
 };
 
 #endif /* BLOCK_H_ */

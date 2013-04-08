@@ -51,8 +51,6 @@ void Block::moveBlock(moveDirection m) {
 		switch(m) {
 
 			case up:
-				sleep(1);
-
 				if(Position[0][Y_AXIS] < Position[1][Y_AXIS]) {
 					Position[0][Y_AXIS] += 2;
 					Position[1][Y_AXIS] += 1;
@@ -67,7 +65,6 @@ void Block::moveBlock(moveDirection m) {
 				}
 				break;
 			case down:
-				sleep(1);
 				if(Position[0][Y_AXIS] < Position[1][Y_AXIS]) {
 					Position[0][Y_AXIS] -= 1;
 					Position[1][Y_AXIS] -= 2;
@@ -83,7 +80,6 @@ void Block::moveBlock(moveDirection m) {
 				break;
 
 			case leftd:
-				sleep(1);
 				if(Position[0][X_AXIS] < Position[1][X_AXIS]) {
 					Position[0][X_AXIS] -= 1;
 					Position[1][X_AXIS] -= 2;
@@ -99,7 +95,6 @@ void Block::moveBlock(moveDirection m) {
 				break;
 
 			case rightd:
-				sleep(1);
 
 				if(Position[0][X_AXIS] < Position[1][X_AXIS]) {
 					Position[0][X_AXIS] += 2;
@@ -122,3 +117,42 @@ void Block::moveBlock(moveDirection m) {
 
 	} // End else
 } // End function
+
+bool Block::isBlockOnPosition(int pos[2]) {
+	return ((Position[0][X_AXIS] == pos[X_AXIS]) && (Position[1][X_AXIS] == pos[X_AXIS]) && (Position[0][Y_AXIS] == pos[Y_AXIS]) && (Position[1][Y_AXIS] == pos[Y_AXIS]));
+}
+
+bool Block::isBlockOutOfPlatform(bool PlatformMatrix[MAX_PLATFORM_SIZE_X][MAX_PLATFORM_SIZE_Y]) {
+	if(Position[0][X_AXIS] < 0 || Position[0][X_AXIS] > MAX_PLATFORM_SIZE_X
+	  || Position[0][Y_AXIS] < 0 || Position[0][Y_AXIS] > MAX_PLATFORM_SIZE_Y
+	  || Position[1][X_AXIS] < 0 || Position[1][X_AXIS] > MAX_PLATFORM_SIZE_X
+	  || Position[1][Y_AXIS] < 0 || Position[1][X_AXIS] > MAX_PLATFORM_SIZE_Y
+	)
+		return true;
+
+	int i,j;
+
+	i = Position[0][X_AXIS];
+	j = Position[0][Y_AXIS];
+
+	if(PlatformMatrix[i][j] == false) return true;
+
+	i = Position[1][X_AXIS];
+	j = Position[1][Y_AXIS];
+
+	if(PlatformMatrix[i][j] == false) return true;
+
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+

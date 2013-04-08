@@ -21,9 +21,12 @@ using namespace std;
 // Graphic Libs
 #include <GL/gl.h>
 #include <GL/glut.h>
-#include "Box2D/Box2D.h"
 #include <png.h>
 #include <SOIL.h>
+
+
+// Program Functions
+#include "keyboard.h"
 
 // These constants stand for the width and height of the main window
 #define MAIN_WINDOW_WIDTH 400
@@ -51,7 +54,6 @@ enum moveDirection {
 
 #include "Platform.h"
 #include "Block.h"
-
 
 
 #endif /* INC_H_ */
