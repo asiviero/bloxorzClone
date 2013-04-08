@@ -11,3 +11,10 @@
 *.lai
 *.la
 *.a
+
+# Eclipse Files
+.cproject
+.project
+
+*.d 
+*.mk
