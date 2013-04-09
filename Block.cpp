@@ -145,7 +145,81 @@ bool Block::isBlockOutOfPlatform(bool PlatformMatrix[MAX_PLATFORM_SIZE_X][MAX_PL
 	return false;
 }
 
+bool Block::isBlockStanding() {
+	return (Position[0][X_AXIS] == Position[1][X_AXIS]) && (Position[0][Y_AXIS] == Position[1][Y_AXIS]);
+}
 
+void Block::Render() {
+	if(this->isBlockStanding()) {
+		for(int i=0; i<2; i++) {
+			glPushMatrix();
+							   	glColor3f(1,0,0);
+							   	glBegin(GL_POLYGON);
+							   		glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0+i);
+							   		glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0+i);
+							   		glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0+i);
+							   		glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0+i);
+							   	glEnd();
+
+							   	glBegin(GL_POLYGON);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0+i);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1+i);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1+i);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0+i);
+								glEnd();
+
+								glBegin(GL_POLYGON);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0+i);
+								glEnd();
+
+							   	glBegin(GL_POLYGON);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1+i);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1+i);
+								glEnd();
+							   	glPopMatrix();
+		}
+	}
+	else {
+		for(int i=0; i<2; i++) {
+			glPushMatrix();
+				   	glColor3f(1,0,0);
+				   	glBegin(GL_POLYGON);
+				   		glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0);
+				   		glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0);
+				   		glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0);
+				   		glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0);
+				   	glEnd();
+
+				   	glBegin(GL_POLYGON);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0);
+					glEnd();
+
+					glBegin(GL_POLYGON);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0);
+					glEnd();
+
+				   	glBegin(GL_POLYGON);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1);
+					glEnd();
+				   	glPopMatrix();
+
+		}
+	}
+}
 
 
 

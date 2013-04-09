@@ -87,29 +87,10 @@ void fsmFunction(void) {
 	           /* viewing transformation  */
 	   glTranslatef(-MAX_PLATFORM_SIZE_X/2,-MAX_PLATFORM_SIZE_Y/2,0);
 	   gluLookAt (0, 0, 10.0-camDistance	, 0,0, 0.0, camDistance, 1.0, 0.0);
-	   glScalef (1.0, 1.0, 1.0);      /* modeling transformation */
+	   //glScalef (1.0, 1.0, 1.0);      /* modeling transformation */
 	   //glutWireCube (1.0);
 
-	   	glPushMatrix();
-	   	glColor3f(1,0,0);
-
-	   	glBegin(GL_POLYGON);
-	   		glVertex3f(b1->Position[0][X_AXIS],b1->Position[0][Y_AXIS],0);
-	   		glVertex3f(b1->Position[0][X_AXIS]+1,b1->Position[0][Y_AXIS],0);
-	   		glVertex3f(b1->Position[0][X_AXIS]+1,b1->Position[0][Y_AXIS]+1,0);
-	   		glVertex3f(b1->Position[0][X_AXIS],b1->Position[0][Y_AXIS]+1,0);
-	   	glEnd();
-
-	   	glBegin(GL_POLYGON);
-			glVertex3f(b1->Position[0][X_AXIS],b1->Position[0][Y_AXIS],1);
-			glVertex3f(b1->Position[0][X_AXIS]+1,b1->Position[0][Y_AXIS],1);
-			glVertex3f(b1->Position[0][X_AXIS]+1,b1->Position[0][Y_AXIS]+1,1);
-			glVertex3f(b1->Position[0][X_AXIS],b1->Position[0][Y_AXIS]+1,1);
-		glEnd();
-
-
-
-	   	glPopMatrix();
+	   b1->Render();
 
 	   glFlush ();
 

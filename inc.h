@@ -53,6 +53,7 @@ enum moveDirection {
 	rightd = 2
 };
 
+#include "Renderable.h"
 #include "Platform.h"
 #include "Block.h"
 

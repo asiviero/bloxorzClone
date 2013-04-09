@@ -10,7 +10,7 @@
 
 #include "inc.h"
 
-class Block {
+class Block : public Renderable {
 public:
 	int Position[2][2];
 
@@ -20,6 +20,8 @@ public:
 	void moveBlock(moveDirection m);
 	bool isBlockOnPosition(int pos[2]);
 	bool isBlockOutOfPlatform(bool PlatformMatrix[MAX_PLATFORM_SIZE_X][MAX_PLATFORM_SIZE_Y]);
+	bool isBlockStanding();
+	virtual void Render();
 };
 
 #endif /* BLOCK_H_ */
