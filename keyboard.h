@@ -10,5 +10,9 @@
 
 void specialKeysHandler(int button, int x, int y);
 void keyboardHandler(unsigned char button, int x, int y);
+void initializeKeyStates();
+void keyboardHandler(unsigned char button, int x, int y);
+void keyboardUpHandler(unsigned char button, int x, int y);
+void performKeyOperations();
 
 #endif /* KEYBOARD_H_ */

@@ -16,6 +16,7 @@ public:
 
 	Platform(char *platfile);
 	virtual ~Platform();
+	virtual void Render();
 };
 
 #endif /* PLATFORM_H_ */

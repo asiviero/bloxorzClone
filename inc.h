@@ -43,8 +43,8 @@ using namespace std;
 #define Y_AXIS 1
 #define Z_AXIS 2
 
-#define MAX_PLATFORM_SIZE_X 10
-#define MAX_PLATFORM_SIZE_Y 10
+#define MAX_PLATFORM_SIZE_X 12
+#define MAX_PLATFORM_SIZE_Y 12
 
 enum moveDirection {
 	up = 1,

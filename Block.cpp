@@ -181,6 +181,21 @@ void Block::Render() {
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1+i);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1+i);
 								glEnd();
+
+								glBegin(GL_POLYGON);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0+i);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0+i);
+								glEnd();
+
+								glBegin(GL_POLYGON);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0+i);
+									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1+i);
+									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0+i);
+								glEnd();
+
 							   	glPopMatrix();
 		}
 	}
@@ -215,6 +230,21 @@ void Block::Render() {
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1);
 					glEnd();
+
+					glBegin(GL_POLYGON);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0);
+					glEnd();
+
+					glBegin(GL_POLYGON);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0);
+						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1);
+						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0);
+					glEnd();
+
 				   	glPopMatrix();
 
 		}
