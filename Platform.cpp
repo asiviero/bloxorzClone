@@ -41,6 +41,7 @@ void Platform::Render() {
 	for(int i=0; i<MAX_PLATFORM_SIZE_X; i++) {
 		for(int j=0; j<MAX_PLATFORM_SIZE_Y; j++) {
 			if(PlatformMatrix[i][j] == true) {
+
 				glPushMatrix();
 								   	if(i == Goal[X_AXIS] && j == Goal[Y_AXIS]) {
 								   		glColor3f(0,0,0);
@@ -48,9 +49,13 @@ void Platform::Render() {
 								   		glColor3f(1,1,1);
 								   	}
 								   	glBegin(GL_POLYGON);
+
 								   		glVertex3f(i,j,0);
+
 								   		glVertex3f(i+1,j,0);
+
 								   		glVertex3f(i+1,j+1,0);
+
 								   		glVertex3f(i,j+1,0);
 								   	glEnd();
 
@@ -69,9 +74,13 @@ void Platform::Render() {
 									glEnd();
 
 								   	glBegin(GL_POLYGON);
+
 										glVertex3f(i,j,0.2);
+
 										glVertex3f(i+1,j,0.2);
+
 										glVertex3f(i+1,j+1,0.2);
+
 										glVertex3f(i,j+1,0.2);
 									glEnd();
 
@@ -90,6 +99,7 @@ void Platform::Render() {
 									glEnd();
 
 								   	glPopMatrix();
+
 
 			}
 		}

@@ -5,7 +5,7 @@
  *      Author: andre
  */
 
-#include "Block.h"
+#include "inc.h"
 
 Block::Block(int pos[2][2]) {
 	for(int i=0; i<2; i++) {
@@ -153,99 +153,155 @@ void Block::Render() {
 	if(this->isBlockStanding()) {
 		for(int i=0; i<2; i++) {
 			glPushMatrix();
-							   	glColor3f(1,0,0);
-							   	glBegin(GL_POLYGON);
+							   	//glColor3f(1,0,0);
+								//glClear(GL_COLOR_BUFFER_BIT);
+								glEnable(GL_TEXTURE_2D);
+							   	glBindTexture(GL_TEXTURE_2D, brickTextureID);
+							   	glBegin(GL_QUADS);
+							     	glTexCoord2f(0, 0);
 							   		glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0+i);
+							   		glTexCoord2f(1, 0);
 							   		glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0+i);
+							   		glTexCoord2f(1, 1);
 							   		glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0+i);
+							   		glTexCoord2f(0, 1);
 							   		glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0+i);
 							   	glEnd();
 
-							   	glBegin(GL_POLYGON);
+							   	glBegin(GL_QUADS);
+
+							   		glTexCoord2f(0, 0);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0+i);
+									glTexCoord2f(0, 1);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1+i);
+									glTexCoord2f(1, 1);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1+i);
+									glTexCoord2f(1, 0);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0+i);
 								glEnd();
 
-								glBegin(GL_POLYGON);
+								glBegin(GL_QUADS);
+									glTexCoord2f(0, 0);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0+i);
+									glTexCoord2f(1, 0);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1+i);
+									glTexCoord2f(1, 1);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1+i);
+									glTexCoord2f(0, 1);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0+i);
 								glEnd();
 
-							   	glBegin(GL_POLYGON);
+							   	glBegin(GL_QUADS);
+							   		glTexCoord2f(0, 0);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1+i);
+									glTexCoord2f(1, 0);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1+i);
+									glTexCoord2f(1, 1);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1+i);
+									glTexCoord2f(0, 1);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1+i);
 								glEnd();
 
-								glBegin(GL_POLYGON);
+								glBegin(GL_QUADS);
+									glTexCoord2f(0, 0);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0+i);
+									glTexCoord2f(1, 0);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1+i);
+									glTexCoord2f(1, 1);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1+i);
+									glTexCoord2f(0, 1);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0+i);
 								glEnd();
 
-								glBegin(GL_POLYGON);
+								glBegin(GL_QUADS);
+									glTexCoord2f(0, 0);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0+i);
+									glTexCoord2f(1, 0);
 									glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1+i);
+									glTexCoord2f(1, 1);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1+i);
+									glTexCoord2f(0, 1);
 									glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0+i);
 								glEnd();
-
+								glDisable(GL_TEXTURE_2D);
 							   	glPopMatrix();
 		}
 	}
 	else {
 		for(int i=0; i<2; i++) {
 			glPushMatrix();
-				   	glColor3f(1,0,0);
+
+				   	//glColor3f(1,0,0);
+				   	glEnable(GL_TEXTURE_2D);
+					glBindTexture(GL_TEXTURE_2D, brickTextureID);
 				   	glBegin(GL_POLYGON);
+				   		glTexCoord2f(0, 0);
 				   		glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0);
+				   		glTexCoord2f(1, 0);
 				   		glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0);
+				   		glTexCoord2f(1, 1);
 				   		glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0);
+				   		glTexCoord2f(1, 0);
 				   		glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0);
 				   	glEnd();
 
 				   	glBegin(GL_POLYGON);
+				   		glTexCoord2f(0, 0);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0);
+						glTexCoord2f(1, 0);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1);
+						glTexCoord2f(1, 1);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1);
+						glTexCoord2f(0, 1);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0);
 					glEnd();
 
 					glBegin(GL_POLYGON);
+						glTexCoord2f(0, 0);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0);
+						glTexCoord2f(1, 0);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1);
+						glTexCoord2f(1, 1);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1);
+						glTexCoord2f(0, 1);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0);
 					glEnd();
 
 				   	glBegin(GL_POLYGON);
+				   		glTexCoord2f(0, 0);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1);
+						glTexCoord2f(1, 0);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1);
+						glTexCoord2f(1, 1);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1);
+						glTexCoord2f(0, 1);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1);
 					glEnd();
 
 					glBegin(GL_POLYGON);
+						glTexCoord2f(0, 0);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,0);
+						glTexCoord2f(1, 0);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS]+1,1);
+						glTexCoord2f(1, 1);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,1);
+						glTexCoord2f(0, 1);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS]+1,0);
 					glEnd();
 
 					glBegin(GL_POLYGON);
+						glTexCoord2f(0, 0);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],0);
+						glTexCoord2f(1, 0);
 						glVertex3f(Position[i][X_AXIS],Position[i][Y_AXIS],1);
+						glTexCoord2f(1, 1);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],1);
+						glTexCoord2f(0, 1);
 						glVertex3f(Position[i][X_AXIS]+1,Position[i][Y_AXIS],0);
 					glEnd();
 
 				   	glPopMatrix();
+				   	glDisable(GL_TEXTURE_2D);
 
 		}
 	}

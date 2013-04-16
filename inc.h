@@ -46,6 +46,8 @@ using namespace std;
 #define MAX_PLATFORM_SIZE_X 12
 #define MAX_PLATFORM_SIZE_Y 12
 
+extern GLuint brickTextureID;
+
 enum moveDirection {
 	up = 1,
 	down = -1,
@@ -57,5 +59,5 @@ enum moveDirection {
 #include "Platform.h"
 #include "Block.h"
 
-
+#define TEXTURE_LOAD_ERROR 0
 #endif /* INC_H_ */
