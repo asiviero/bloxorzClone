@@ -94,7 +94,16 @@ void performKeyOperations() {
 		camDistance[X_AXIS] += 0.1;
 		pressed = true;
 	}
+	if(keyStates['r'] == true) {
+		resetCamera();
+		pressed=true;
+	}
 	if(pressed == true) {
 		glutPostRedisplay();
 	}
+}
+
+void resetCamera() {
+	memset(camDistance,0,3*sizeof(float));
+	memset(angle,0,3*sizeof(float));
 }

@@ -14,5 +14,6 @@ void initializeKeyStates();
 void keyboardHandler(unsigned char button, int x, int y);
 void keyboardUpHandler(unsigned char button, int x, int y);
 void performKeyOperations();
+void resetCamera();
 
 #endif /* KEYBOARD_H_ */

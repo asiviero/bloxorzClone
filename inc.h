@@ -23,7 +23,7 @@ using namespace std;
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <png.h>
-#include <SOIL.h>
+//#include <SOIL.h>
 
 
 // Program Functions

@@ -39,6 +39,8 @@ void Stage::Render() {
 		   glClear (GL_COLOR_BUFFER_BIT);
 		   glColor3f (1.0, 1.0, 1.0);
 		   glLoadIdentity ();             /* clear the matrix */
+
+
 		   glRotatef(angle[X_AXIS],1,0,0);
 		   glRotatef(angle[Y_AXIS],0,1,0);
 		   glRotatef(angle[Z_AXIS],0,0,1);
