@@ -48,6 +48,11 @@ using namespace std;
 
 extern GLuint brickTextureID;
 
+extern float camDistance[3];
+extern float angle[3];
+extern bool keyStates[255];
+
+
 enum moveDirection {
 	up = 1,
 	down = -1,
@@ -55,9 +60,26 @@ enum moveDirection {
 	rightd = 2
 };
 
-#include "Renderable.h"
+enum gameStates {
+	OpeningScreen,
+	StageScreen,
+	FailScreen,
+	SuccessScreen,
+	GameOverScreen
+};
+
 #include "Platform.h"
+#include "Renderable.h"
 #include "Block.h"
+#include "Stage.h"
+#include "TextScreen.h"
+#include "Screen.h"
+
+extern Stage *fase;
+extern TextScreen *initialScreen,*failScreen,*succesScreen;
+extern Screen *gameScreen;
+
 
 #define TEXTURE_LOAD_ERROR 0
+#define MAX_NUMBER_STAGES 2
 #endif /* INC_H_ */

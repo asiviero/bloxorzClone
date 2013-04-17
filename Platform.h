@@ -14,7 +14,7 @@ public:
 	int StartPosition[2][2];
 	int Goal[2];
 
-	Platform(char *platfile);
+	Platform(char* platfile);
 	virtual ~Platform();
 	virtual void Render();
 };

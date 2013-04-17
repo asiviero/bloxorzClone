@@ -10,10 +10,19 @@
 Platform *p1;
 Block *b1;
 
+bool dispFlag = false;
 float camDistance[3] = {0,0,0};
 float angle[3] = {0,0,0};
 bool keyStates[255];
 GLuint brickTextureID;
+Stage *fase;
+TextScreen *initialScreen,*failScreen,*succesScreen,*gameOverScreen;
+Screen *gameScreen;
+gameStates gameState = OpeningScreen;
+
+
+char FasesString[2][100];
+int onStage = 0;
 
 GLuint loadTexture(const string filename, int &width, int &height)
  {
@@ -142,8 +151,19 @@ void initScreen (void)
 {
 /*  select clearing (background) color       */
     //glClearColor (1.0, 1.0, 1.0, 0.0);
-    glClearColor (0.0, 0.0, 0.0, 0.0);
-       glShadeModel (GL_FLAT);
+	//glViewport (0, 0, (GLsizei) 400, (GLsizei) 400);
+	glClearColor (0.0, 0.0, 0.0, 0.0);
+		       glShadeModel (GL_FLAT);
+
+		glMatrixMode (GL_PROJECTION);
+		glLoadIdentity();
+		gluPerspective(0,1,0,10);
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+
+
 /*  initialize viewing values  */
     /*glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -165,76 +185,109 @@ void reshape (int w, int h)
 
 
 void fsmFunction(void) {
-	/*glEnable(GL_DEPTH_TEST);
-	glClear (GL_COLOR_BUFFER_BIT);
-//	glPushMatrix();
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(0,0,-10+camDistance,0,0,0,0,1,0);
-
-	glTranslatef(0,0,-camDistance);
-
-	// Draw the Brick
-//	glPushMatrix();
-	glColor3f(1,0,0);
-	glBegin(GL_POLYGON);
-		glVertex3f(b1->Position[0][X_AXIS],b1->Position[0][Y_AXIS],0);
-		glVertex3f(b1->Position[0][X_AXIS]+1,b1->Position[0][Y_AXIS],0);
-		glVertex3f(b1->Position[0][X_AXIS]+1,b1->Position[0][Y_AXIS]+1,0);
-		glVertex3f(b1->Position[0][X_AXIS],b1->Position[0][Y_AXIS]+1,0);
-	glEnd();
-//	glPopMatrix();
 
 
-	glFlush();
-	//glutSwapBuffers();
+	switch(gameState) {
+		case OpeningScreen:
+			gameScreen = initialScreen;
+			if(keyStates[13] == true || keyStates['m'] == true) {
+				keyStates[13] = false;
+				keyStates['m'] = false;
+				gameState = StageScreen;
+				glutSwapBuffers();
+				glutPostRedisplay();
+			}
+			if(dispFlag == false) {
+				glutPostRedisplay();
+				dispFlag = true;
+			}
+			break;
+		case StageScreen:
+			dispFlag = false;
+			if(!fase) fase = new Stage(FasesString[onStage]);
+			gameScreen = fase;
 
-	//glutPostRedisplay();*/
+			// Check for out of platform
+			if(fase->b1->isBlockOutOfPlatform(fase->p1->PlatformMatrix)) {
+				//cout << "Out of Platform!\n";
+				gameState = FailScreen;
+				fase = NULL;
+				glutSwapBuffers();
+				glutPostRedisplay();
+				//return;
+			}
 
-	/*
-	cout << "Plat Goal: " << p1->Goal[X_AXIS] << " " << p1->Goal[Y_AXIS] << "\n";
-//	cout << "Plat Starting Point: " << p1->StartPosition[0][X_AXIS] << " " << p1->StartPosition[0][Y_AXIS] << " " << p1->StartPosition[1][X_AXIS] << " " << p1->StartPosition[1][Y_AXIS] <<"\n";
-	cout << "Block Point: " << b1->Position[0][X_AXIS] << " " << b1->Position[0][Y_AXIS] << " " << b1->Position[1][X_AXIS] << " " << b1->Position[1][Y_AXIS] <<"\n";
+			// Check if objective reached
+			if(fase && fase->b1->isBlockOnPosition(fase->p1->Goal)) {
+				gameState = OpeningScreen;
+				onStage++;
+				if(onStage == MAX_NUMBER_STAGES) {
+					gameState = GameOverScreen;
+				}
+				fase = NULL;
 
-	*/
+				//glMatrixMode(GL_MODELVIEW);
+				//glLoadIdentity();
+				glutPostRedisplay();
+				//return;
+			}
+			break;
 
-	glEnable(GL_DEPTH_TEST);
-	   glClear (GL_COLOR_BUFFER_BIT);
-	   glColor3f (1.0, 1.0, 1.0);
-	   glLoadIdentity ();             /* clear the matrix */
-	   glRotatef(angle[X_AXIS],1,0,0);
-	   glRotatef(angle[Y_AXIS],0,1,0);
-	   glRotatef(angle[Z_AXIS],0,0,1);
+		// Morreu
+		case FailScreen:
 
-	   glTranslatef(-MAX_PLATFORM_SIZE_X/2,-MAX_PLATFORM_SIZE_Y/2,0);
-	   gluLookAt (-camDistance[X_AXIS], -camDistance[Y_AXIS], 10.0-camDistance[Z_AXIS],
-			   -camDistance[X_AXIS], -camDistance[Y_AXIS], -camDistance[Z_AXIS], 0.0, 1.0, 0.0);
+			gameScreen = failScreen;
+			if(dispFlag == false) {
+				glutPostRedisplay();
+				dispFlag = true;
+			}
+			if(keyStates[13] == true || keyStates['m'] == true) {
+				keyStates[13] = false;
+				keyStates['m'] = false;
+				gameState = StageScreen;
+				glutSwapBuffers();
+				glutPostRedisplay();
+			}
+			//glMatrixMode(GL_MODELVIEW);
+			//glLoadIdentity();
+			break;
 
-       /* viewing transformation  */
+		// Passou de fase
+		case SuccessScreen:
 
-	   //glTranslatef(0,0,10);
+				gameScreen = succesScreen;
+				if(dispFlag == false) {
+					glutPostRedisplay();
+					dispFlag = true;
+				}
+				if(keyStates[13] == true || keyStates['m'] == true) {
+					keyStates[13] = false;
+					keyStates['m'] = false;
+					gameState = StageScreen;
+					glutSwapBuffers();
+					glutPostRedisplay();
+				}
+				//glMatrixMode(GL_MODELVIEW);
+				//glLoadIdentity();
+				break;
 
-	   //glScalef (1.0, 1.0, 1.0);      /* modeling transformation */
-	   //glutWireCube (1.0);
+		// Fim das Fases
+		case GameOverScreen:
 
-	   p1->Render();
-	   b1->Render();
+				gameScreen = gameOverScreen;
+				if(dispFlag == false) {
+					glutPostRedisplay();
+					dispFlag = true;
+				}
+				//glMatrixMode(GL_MODELVIEW);
+				//glLoadIdentity();
+				break;
 
-	   glFlush ();
-	   performKeyOperations();
-	   	   cout << "Block Point: " << b1->Position[0][X_AXIS] << " " << b1->Position[0][Y_AXIS] << " " << b1->Position[1][X_AXIS] << " " << b1->Position[1][Y_AXIS] <<"\n";
+	}
+	gameScreen->Render();
 
-	   	// Check for out of platform
-	   		if(b1->isBlockOutOfPlatform(p1->PlatformMatrix)) {
-	   			cout << "Out of Platform!\n";
-	   		}
 
-	   		// Check if objective reached
-	   		if(b1->isBlockOnPosition(p1->Goal)) {
-	   			cout << "Objective Reached!\n";
-	   		}
-
+	//fase->Render();
 }
 
 
@@ -248,16 +301,26 @@ int main(int argc, char** argv) {
 	int intMainWindowID;
 	intMainWindowID = glutCreateWindow("Bloxorz Clone");
 
-	p1 = new Platform("../platforms/blox.txt");
+	//p1 = new Platform("../platforms/blox.txt");
 
-	b1 = new Block(p1->StartPosition);
+	//b1 = new Block(p1->StartPosition);
+	strcpy(FasesString[0],"../platforms/plat.txt");
+	strcpy(FasesString[1],"../platforms/blox.txt");
+	//fase = new Stage("../platforms/blox.txt");
+
+	initialScreen = new TextScreen("Bem-vindo ao Bloxorz Clone","Tecle M para Matar");
+	failScreen = new TextScreen("FAIL","Disque M para Matar");
+	succesScreen = new TextScreen("GREAT SUCCESS","Disque M para Matar");
+	gameOverScreen = new TextScreen("GAME OVER","Parabens! Voce zerou :D");
+
+	gameScreen = initialScreen;
 
 	// Loading Texture
 	int w,h;
 	//glEnable(GL_TEXTURE_2D);
 	glGenTextures(1, &brickTextureID);
 
-	if(fopen("../img/brick.png","r")) cout << "Abriu!\n";
+
 	brickTextureID = loadTexture("../img/brick.png",w,h);
 	//glBindTexture(GL_TEXTURE_2D, brickTextureID);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, your_data);
